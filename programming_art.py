@@ -1,5 +1,5 @@
 import PyQt5
-import sys
+import sys,os
 from PyQt5 import uic, QtGui
 from PyQt5.QtWidgets import QColorDialog,QApplication, QWidget,QMainWindow, QHBoxLayout, QVBoxLayout, QDialog
 from PyQt5.QtCore import QLine,QPoint,QCoreApplication
@@ -8,12 +8,15 @@ import numpy as np
 import time
 
 
-
+def resource_path(relative_path):
+  if hasattr(sys, '_MEIPASS'):
+      return os.path.join(sys._MEIPASS, relative_path)
+  return os.path.join(os.path.abspath('.'), relative_path)
 
 class MyApp(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi("mainWindow.ui",self)
+        uic.loadUi(resource_path("mainWindow.ui"),self)
         self.setWindowTitle("Programming Art")
         self.setGeometry(0,0,1200,800)
 
@@ -35,7 +38,7 @@ class MyApp(QMainWindow):
 
 
         # 
-        self.canvas = QtGui.QPixmap(450, 450)
+        self.canvas = QtGui.QPixmap(670, 670)
         self.Art.setPixmap(self.canvas)
         self.startButton.clicked.connect(self.draw_art)
 
@@ -69,8 +72,8 @@ class MyApp(QMainWindow):
         self.Art.pixmap().fill()
         self.repeat = self.repeat_times.value()
 
-        self.start_x=100.0
-        self.start_y=100.0
+        self.start_x=250.0
+        self.start_y=250.0
         self.theta = 0.0
         for i in range (0,self.repeat):
             painter = QtGui.QPainter(self.Art.pixmap())
@@ -84,7 +87,7 @@ class MyApp(QMainWindow):
             painter.end()
             self.Art.update()
             QCoreApplication.processEvents()
-            time.sleep(0.07)
+            time.sleep(0.1)
 
     def get_stop_point(self):
         self.stop_x=self.start_x+self.myLength*np.cos(self.theta)
