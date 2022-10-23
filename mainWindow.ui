@@ -15,8 +15,8 @@
    <widget class="QPushButton" name="startButton">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>580</y>
+      <x>120</x>
+      <y>560</y>
       <width>151</width>
       <height>121</height>
      </rect>
@@ -28,24 +28,6 @@
     </property>
     <property name="text">
      <string>Start</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="stopButton">
-    <property name="geometry">
-     <rect>
-      <x>210</x>
-      <y>580</y>
-      <width>151</width>
-      <height>121</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>30</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Stop</string>
     </property>
    </widget>
    <widget class="QFrame" name="frame">
@@ -316,14 +298,14 @@
     <widget class="QDial" name="angle_dial">
      <property name="geometry">
       <rect>
-       <x>230</x>
+       <x>260</x>
        <y>100</y>
        <width>81</width>
        <height>81</height>
       </rect>
      </property>
      <property name="minimum">
-      <number>10</number>
+      <number>30</number>
      </property>
      <property name="maximum">
       <number>180</number>
@@ -332,10 +314,10 @@
       <number>1</number>
      </property>
      <property name="value">
-      <number>10</number>
+      <number>30</number>
      </property>
      <property name="sliderPosition">
-      <number>10</number>
+      <number>30</number>
      </property>
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -350,6 +332,29 @@
       <bool>true</bool>
      </property>
     </widget>
+    <widget class="QTextEdit" name="textAngle">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>110</y>
+       <width>104</width>
+       <height>64</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QLabel" name="Art">
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>10</y>
+      <width>451</width>
+      <height>471</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
