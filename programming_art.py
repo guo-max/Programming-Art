@@ -41,6 +41,9 @@ class MyApp(QMainWindow):
 
         self.textAngle.textChanged.connect(self.on_angle_text)
 
+        #close function
+        self.exitButton.clicked.connect(self.close)
+
     def color_picker(self):
         self.color = QColorDialog.getColor()
         self.color_button.setStyleSheet('* { background-color: '+ self.color.name() + ' }')
