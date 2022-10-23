@@ -17,6 +17,7 @@ Decide to convert it to a digital version.
   ![image](https://user-images.githubusercontent.com/27696259/197403239-11c95fb5-5baa-448a-b8b7-dde368157d4a.png)
 
   The program will repeatly draw a stright line then turn to a new directon. 
+  
   Options to choose
   * repeat times
   * line width
