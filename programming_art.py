@@ -37,9 +37,9 @@ class MyApp(QMainWindow):
         # 
         self.canvas = QtGui.QPixmap(450, 450)
         self.Art.setPixmap(self.canvas)
-        # self.setCentralWidget(self.Art)
-
         self.startButton.clicked.connect(self.draw_art)
+
+        self.textAngle.textChanged.connect(self.on_angle_text)
 
     def color_picker(self):
         self.color = QColorDialog.getColor()
@@ -54,30 +54,45 @@ class MyApp(QMainWindow):
     def on_dial(self):
         self.myAngle=self.angle_dial.value()
         self.textAngle.setText(str(self.myAngle))
-        print(self.myAngle)
+
+    def on_angle_text(self):
+        try:
+            self.myAngle=int(self.textAngle.toPlainText())
+            # self.angle_dial.setValue(self.myAngle)
+        except:
+            print("number only")
         
     def draw_art(self):
         self.Art.pixmap().fill()
         self.repeat = self.repeat_times.value()
-     
-        start_point = QPoint(100,100)
-        theta = 0
+
+        self.start_x=100.0
+        self.start_y=100.0
+        self.theta = 0.0
         for i in range (0,self.repeat):
             painter = QtGui.QPainter(self.Art.pixmap())
             pen = QtGui.QPen()
             pen.setWidth(self.myWidth)
             pen.setColor(self.color)
             painter.setPen(pen)
-            x = start_point.x() + int(self.myLength*np.cos(theta))
-            y = start_point.y() + int(self.myLength*np.sin(theta))
-            stop_point=QPoint(x,y)
-            painter.drawLine(start_point,stop_point)
-            start_point = stop_point
-            theta=theta+self.myAngle/180*np.pi
+
+            painter.drawLine(self.get_start_point(),self.get_stop_point())
+
             painter.end()
             self.Art.update()
             QCoreApplication.processEvents()
             time.sleep(0.07)
+
+    def get_stop_point(self):
+        self.stop_x=self.start_x+self.myLength*np.cos(self.theta)
+        self.stop_y=self.start_y+self.myLength*np.sin(self.theta)
+        self.theta=self.theta+self.myAngle/180.0*np.pi
+        self.start_x=self.stop_x
+        self.start_y=self.stop_y
+        return QPoint(int(self.stop_x),int(self.stop_y))
+    
+    def get_start_point(self):
+        return QPoint(int(self.start_x),int(self.start_y))
 
 
 
