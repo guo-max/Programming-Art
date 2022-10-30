@@ -44,8 +44,9 @@ class MyApp(QMainWindow):
 
         self.textAngle.textChanged.connect(self.on_angle_text)
 
-        #close function
-        self.exitButton.clicked.connect(self.close)
+        #pause function
+        self.paused=False
+        self.pauseButton.clicked.connect(self.on_pause)
 
     def color_picker(self):
         self.color = QColorDialog.getColor()
@@ -75,17 +76,23 @@ class MyApp(QMainWindow):
         self.start_x=250.0
         self.start_y=250.0
         self.theta = 0.0
-        for i in range (0,self.repeat):
-            painter = QtGui.QPainter(self.Art.pixmap())
-            pen = QtGui.QPen()
-            pen.setWidth(self.myWidth)
-            pen.setColor(self.color)
-            painter.setPen(pen)
+        i=0
+        self.paused = False
+        self.pauseButton.setText("Pause")
+        while(i<self.repeat):
+            if(not self.paused):
 
-            painter.drawLine(self.get_start_point(),self.get_stop_point())
+                painter = QtGui.QPainter(self.Art.pixmap())
+                pen = QtGui.QPen()
+                pen.setWidth(self.myWidth)
+                pen.setColor(self.color)
+                painter.setPen(pen)
 
-            painter.end()
-            self.Art.update()
+                painter.drawLine(self.get_start_point(),self.get_stop_point())
+
+                painter.end()
+                self.Art.update()
+                i=i+1
             QCoreApplication.processEvents()
             time.sleep(0.1)
 
@@ -100,7 +107,14 @@ class MyApp(QMainWindow):
     def get_start_point(self):
         return QPoint(int(self.start_x),int(self.start_y))
 
-
+    def on_pause(self):
+        if self.paused==True:
+            self.paused=False
+            self.pauseButton.setText("Pause")
+        else:
+            self.paused=True
+            self.pauseButton.setText("Resume")
+        
 
         
 
